@@ -9,3 +9,5 @@ dependencyResolutionManagement {
 rootProject.name = "Firebase service"
 include ':app'
 include ':cloud-messaging'
+include ':cloud-firestore'
+include ':common'
