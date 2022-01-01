@@ -27,5 +27,7 @@ module.exports = {
   rules: {
     "quotes": ["error", "double"],
     "import/no-unresolved": 0,
+    // windows linebreaks when not in production environment
+    "linebreak-style": ["error", process.env.NODE_ENV === 'prod' ? "unix" : "windows"]
   },
 };
