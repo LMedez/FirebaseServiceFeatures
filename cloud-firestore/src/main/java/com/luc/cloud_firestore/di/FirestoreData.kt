@@ -1,6 +1,5 @@
 package com.luc.cloud_firestore.di
 
-import android.util.Log
 import com.google.firebase.firestore.FirebaseFirestore
 import com.luc.common.NetworkStatus
 import com.luc.common.models.NotificationToken
@@ -28,7 +27,7 @@ class FirestoreData(private val firestore: FirebaseFirestore) {
                 firestore.collection("users").document("dHqwQqswQ9nGh3nocz80")
                     .update("notificationToken", NotificationToken(token)).await()
             }
-            NetworkStatus.Success("Token successfully updated")
+            NetworkStatus.Success("Successfully token refreshed")
 
         } catch (e: Exception) {
             NetworkStatus.Error(e, "Unknown error")

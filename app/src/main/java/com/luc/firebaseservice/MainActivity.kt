@@ -15,17 +15,24 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         firebaseViewModel.getNotificationToken().observe(this) {
-            when(it) {
+            when (it) {
                 is NetworkStatus.Success -> {
-                    firebaseViewModel.refreshToken(it.data).observe(this){
-                        Log.d("tests", it.toString())
-                    }
+                    firebaseViewModel.refreshToken(it.data)
                 }
                 is NetworkStatus.Error -> Log.d("tests", it.exception.toString())
             }
         }
+
         firebaseViewModel.setCount().observe(this) {}
+
+        firebaseViewModel.subscribeToTopic("news").observe(this) {
+            when (it) {
+                is NetworkStatus.Success -> Log.d(TAG, it.data)
+                is NetworkStatus.Error -> Log.d(TAG, it.message)
+            }
+        }
 
     }
 }
 
+const val TAG = "tests"
