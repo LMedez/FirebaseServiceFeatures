@@ -21,5 +21,6 @@ dependencies {
     implementation("com.google.android.material:material:1.4.0")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.4.0")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0")
+    implementation("androidx.legacy:legacy-support-v4:1.0.0")
 
 }

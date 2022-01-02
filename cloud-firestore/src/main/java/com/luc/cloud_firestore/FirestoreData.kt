@@ -1,12 +1,13 @@
-package com.luc.cloud_firestore.di
+package com.luc.cloud_firestore
 
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.luc.common.NetworkStatus
 import com.luc.common.models.NotificationToken
 import com.luc.common.models.User
 import kotlinx.coroutines.tasks.await
-import java.lang.Exception
 import java.util.*
+import kotlin.Exception
 import kotlin.random.Random
 
 class FirestoreData(private val firestore: FirebaseFirestore) {
@@ -14,7 +15,7 @@ class FirestoreData(private val firestore: FirebaseFirestore) {
     suspend fun refreshUserNotificationToken(token: String): NetworkStatus<String> {
         return try {
             val data =
-                firestore.collection("users").document("dHqwQqswQ9nGh3nocz80").get().await()
+                firestore.collection(COLLECTION).document("dHqwQqswQ9nGh3nocz80").get().await()
                     .toObject(User::class.java)
             val calendar = Calendar.getInstance()
             calendar.time =
@@ -24,7 +25,7 @@ class FirestoreData(private val firestore: FirebaseFirestore) {
                 )
 
             if (calendar.get(Calendar.MONTH) + 1 < Calendar.getInstance().get(Calendar.MONTH) + 1) {
-                firestore.collection("users").document("dHqwQqswQ9nGh3nocz80")
+                firestore.collection(COLLECTION).document("dHqwQqswQ9nGh3nocz80")
                     .update("notificationToken", NotificationToken(token)).await()
             }
             NetworkStatus.Success("Successfully token refreshed")
@@ -34,8 +35,16 @@ class FirestoreData(private val firestore: FirebaseFirestore) {
         }
     }
 
-    suspend fun setCount() {
-        firestore.collection("users").document("dHqwQqswQ9nGh3nocz80")
-            .update("count", Random.nextInt()).await()
+    suspend fun addTopic(topic: String): NetworkStatus<String> {
+        return try {
+            firestore.collection(COLLECTION).document("dHqwQqswQ9nGh3nocz80")
+                .update("topics", FieldValue.arrayUnion(topic)).await()
+            NetworkStatus.Success("New topic $topic added successfully")
+
+        } catch (e: Exception) {
+            NetworkStatus.Error(e, e.message.toString())
+        }
     }
 }
+
+const val COLLECTION = "users"

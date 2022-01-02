@@ -3,7 +3,7 @@ package com.luc.firebaseservice
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
-import com.luc.cloud_firestore.di.FirestoreData
+import com.luc.cloud_firestore.FirestoreData
 import com.luc.cloud_messaging.MessagingData
 import com.luc.common.NetworkStatus
 import kotlinx.coroutines.launch
@@ -14,12 +14,17 @@ class FirebaseViewModel constructor(
     private val messagingData: MessagingData
 ) : ViewModel() {
 
-    fun setCount() = liveData {
-        emit(firestoreData.setCount())
+    fun subscribeToTopic(topic: String) = liveData {
+        when (val result = messagingData.subscribeToTopic(topic)) {
+            is NetworkStatus.Success -> {
+                emit(firestoreData.addTopic(topic))
+            }
+            else -> emit(result)
+        }
     }
 
-    fun subscribeToTopic(topic: String) = liveData {
-         emit(messagingData.subscribeToTopic(topic))
+    fun addTopic(topic: String) = liveData {
+        emit(firestoreData.addTopic(topic))
     }
 
     fun getNotificationToken() = liveData { emit(messagingData.getToken()) }

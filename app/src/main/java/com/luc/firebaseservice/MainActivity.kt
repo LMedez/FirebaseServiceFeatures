@@ -3,6 +3,8 @@ package com.luc.firebaseservice
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import com.google.android.material.button.MaterialButton
 import com.luc.common.NetworkStatus
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -23,15 +25,10 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        firebaseViewModel.setCount().observe(this) {}
-
-        firebaseViewModel.subscribeToTopic("news").observe(this) {
-            when (it) {
-                is NetworkStatus.Success -> Log.d(TAG, it.data)
-                is NetworkStatus.Error -> Log.d(TAG, it.message)
-            }
+        findViewById<MaterialButton>(R.id.cloudMessageBtn).setOnClickListener {
+            it.visibility = View.INVISIBLE
+            supportFragmentManager.beginTransaction().replace(R.id.fragmentContainer, MessageFragment()).commit()
         }
-
     }
 }
 
