@@ -1,6 +1,7 @@
 package com.luc.firebaseservice.di
 
 import android.app.Application
+import com.luc.cloud_authentication.di.authenticationModule
 import com.luc.cloud_firestore.di.firebaseModule
 import com.luc.cloud_messaging.di.messagingModule
 import org.koin.android.ext.koin.androidContext
@@ -17,7 +18,7 @@ class BaseApplication : Application() {
     private fun initKoin() {
         startKoin {
             androidContext(applicationContext)
-            modules(firebaseModule + appModule + messagingModule)
+            modules(firebaseModule + appModule + messagingModule + authenticationModule)
         }
     }
 }

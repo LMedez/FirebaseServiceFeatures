@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.LinearLayout
 import com.google.android.material.button.MaterialButton
 import com.luc.common.NetworkStatus
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -26,8 +27,13 @@ class MainActivity : AppCompatActivity() {
         }
 
         findViewById<MaterialButton>(R.id.cloudMessageBtn).setOnClickListener {
-            it.visibility = View.INVISIBLE
+            findViewById<LinearLayout>(R.id.mainContent).visibility = View.INVISIBLE
             supportFragmentManager.beginTransaction().replace(R.id.fragmentContainer, MessageFragment()).commit()
+        }
+
+        findViewById<MaterialButton>(R.id.authBtn).setOnClickListener {
+            supportFragmentManager.beginTransaction().replace(R.id.fragmentContainer, AuthenticationFragment()).commit()
+
         }
     }
 }

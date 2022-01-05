@@ -4,7 +4,7 @@ import com.google.firebase.messaging.FirebaseMessaging
 import com.luc.common.NetworkStatus
 import kotlinx.coroutines.tasks.await
 
-class MessagingData(private val firebaseMessaging: FirebaseMessaging) {
+class MessagingDataSource(private val firebaseMessaging: FirebaseMessaging) {
 
     suspend fun getToken(): NetworkStatus<String> {
         return try {

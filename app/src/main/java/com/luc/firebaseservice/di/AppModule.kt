@@ -7,6 +7,6 @@ import org.koin.dsl.module
 val appModule = module {
 
     // ViewModel for Detail View
-    viewModel { FirebaseViewModel(get(), get()) }
+    viewModel { FirebaseViewModel(get(), get(), get()) }
 
 }

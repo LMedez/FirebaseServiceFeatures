@@ -12,6 +12,7 @@ dependencies {
     implementation(project(":common"))
     implementation(project(":cloud-messaging"))
     implementation(project(":cloud-firestore"))
+    implementation(project(":cloud-authentication"))
 
     implementation(Libraries.koin)
 
