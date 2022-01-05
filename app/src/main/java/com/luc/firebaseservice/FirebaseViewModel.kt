@@ -42,4 +42,9 @@ class FirebaseViewModel constructor(
     fun signInWithEmailAndPassword(email: String, password: String) = liveData {
         emit(authenticationDataSource.signInWithEmailAndPassword(email, password))
     }
+
+    fun signInWithGoogle(token: String) =
+        liveData {
+            emit(authenticationDataSource.signInWithGoogle(token))
+        }
 }

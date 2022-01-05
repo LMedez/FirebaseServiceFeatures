@@ -15,6 +15,7 @@ dependencies {
     implementation(project(":cloud-authentication"))
 
     implementation(Libraries.koin)
+    implementation(Libraries.playServices)
 
     implementation("androidx.appcompat:appcompat:1.4.0")
     implementation("com.google.android.material:material:1.4.0")
